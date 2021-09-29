@@ -16,9 +16,13 @@ function init() {
         end: `+=${getTopPartsHeight()}`, // end the trigger when it finish the heigth of pen-top selector
         pin: true,
         pinSpacing: false,
-        markers: true //show lines to know where start and end the markers
     }
   });
+
+  gsap.set(".part4", {y: "-547px"});
+  gsap.set(".part5", {y: "-722px"});
+  gsap.set(".part6", {y: "-842px"});
+  
 }
 
 window.addEventListener("load", function () {
