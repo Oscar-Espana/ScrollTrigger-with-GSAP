@@ -19,21 +19,27 @@ function init() {
     },
   });
 
-  gsap.set(".part4", { y: "-547px" });
-  gsap.set(".part5", { y: "-722px" });
-  gsap.set(".part6", { y: "-842px" });
+  const partTopOffsets = [547, 722, 842];
 
-  //tween the tip of the pen back to 0
-  gsap.to(".part6", {
-    y: 0,
-    ease: "none",
-    scrollTrigger: {
-      trigger: ".pen-body", //trigger to pen-body selector
-      start: "top bottom-=640p", // start the trigger
-      end: "+=842px", // end the trigger when it finish the heigth of pen-top selector
-      scrub: true,
-      markers: true,
-    },
+  function fixPart(element, offset, index) {
+    gsap.set(element, { y: -offset });
+
+    //tween the tip of the pen back to 0
+    gsap.to(element, {
+      y: 0,
+      ease: "none",
+      scrollTrigger: {
+        trigger: ".pen-body", //trigger to pen-body selector
+        start: "top bottom-=640p", // start the trigger
+        end: `+=${offset}`, // end the trigger when it finish the heigth of pen-top selector
+        scrub: true,
+        markers: true,
+      },
+    });
+  }
+
+  gsap.utils.toArray([".part4", ".part5", ".part6"]).forEach((part, index) => {
+    fixPart(part, partTopOffsets[index], index);
   });
 }
 
