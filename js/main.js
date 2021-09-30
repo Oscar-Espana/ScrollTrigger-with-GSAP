@@ -12,11 +12,30 @@ function init() {
     scrollTrigger: {
       id: "pen-body",
       trigger: ".part3", //trigger to part3 selector
-      start: "top bottom-=270p", // start the trigger
+      start: "top bottom-=270px", // start the trigger
       end: `+=${getTopPartsHeight()}`, // end the trigger when it finish the heigth of pen-top selector
       pin: true,
       pinSpacing: false,
     },
+  });
+
+  //add class to all parts to reveal the text
+  const allParts = gsap.utils.toArray(".part");
+
+  allParts.forEach((part, index) => {
+    let startPosition = "top center";
+
+    if (index === 2) {
+      startPosition = `top+=${getTopPartsHeight()} center`;
+    }
+    gsap.set(part, {
+      scrollTrigger: {
+        id: `${part.getAttribute("class")}`,
+        trigger: part,
+        start: startPosition,
+        toggleClass: "fade-in",
+      },
+    });
   });
 
   const partTopOffsets = [547, 722, 842];
@@ -33,7 +52,6 @@ function init() {
         start: "top bottom-=640p", // start the trigger
         end: `+=${offset}`, // end the trigger when it finish the heigth of pen-top selector
         scrub: true,
-        markers: true,
       },
     });
   }
